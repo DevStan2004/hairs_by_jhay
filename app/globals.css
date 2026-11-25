@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +43,67 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* --- NEW PAGE TRANSITION STYLES --- */
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+#initial-curtain {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  background-color: #f8efe6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translateY(0);
+  animation: slideUp 1s cubic-bezier(0.76, 0, 0.24, 1) 2s forwards;
+}
+
+#initial-curtain svg {
+  width: 120px !important;
+  height: 120px !important;
+  color: #4a0e0e !important;
+}
+
+#initial-curtain path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw 1.2s ease-in-out forwards;
+}
+
+#transition-curtain {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  background-color: #f8efe6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: translateY(-100%);
+  animation: slideDown 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+#transition-curtain.hide {
+  animation: slideUp 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+#transition-curtain svg {
+  width: 120px !important;
+  height: 120px !important;
+  color: #4a0e0e !important;
 }
